@@ -2,7 +2,7 @@
 
 ### Сортировка
 
-- [selection sort (O(n^2))](selectionSort.py)
+- [selection sort O(n^2)](selectionSort.py)
 
 ### Текст
 
