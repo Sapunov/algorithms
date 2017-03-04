@@ -9,10 +9,12 @@ def binary_search(sorted_list, searched_elem):
     while right >= left:
         mid = (right + left) // 2
 
+        print('%s < %s > %s' % (left, mid, right))
+
         if sorted_list[mid] == searched_elem:
             return mid
 
-        if mid > searched_elem:
+        if sorted_list[mid] > searched_elem:
             right = mid - 1
         else:
             left = mid + 1
