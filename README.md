@@ -1,9 +1,10 @@
-# Алгоритмы
+# Алгоритмы и структуры данных
 
-### Сортировка
+### Сортировки
 
 - [selection sort O(n^2)](selectionSort.py)
 - [insertion sort O(n^2)](insertionSort.py)
+- [merge sort O(nlog(n))](mergeSort.py)
 
 ### Текст
 
@@ -11,5 +12,9 @@
 
 ### Поиск
 
-- [линейный поиск O(n)](binarySearch.py)
-- [двоичный поиск O(log(n))](linearSearch.py)
+- [линейный поиск O(n)](linearSearch.py)
+- [двоичный поиск O(log(n))](binarySearch.py)
+
+### Деревья
+
+- [тернарное дерево поиска](ternarySearchTree.py)
