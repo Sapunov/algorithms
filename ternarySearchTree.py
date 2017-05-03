@@ -25,6 +25,7 @@ class TernarySearchTree:
 
         self.root = Node()
         self._count_leaves = 0
+        self._cache = {}
 
     def __str__(self):
 
@@ -42,6 +43,10 @@ class TernarySearchTree:
             return child.rating is not None
         else:
             return False
+
+    def __len__(self):
+
+        return self._count_leaves
 
     def _insert(self, node, char, rating=None, payload=None):
 
@@ -110,6 +115,33 @@ class TernarySearchTree:
         if node.rating is not None:
             buffer.append((node.rating, prefix + node.data, node.payload))
 
+    def _prefixes(self, string):
+
+        res = []
+
+        while string:
+            res.append(string)
+            string = string[:len(string) - 1]
+
+        return res
+
+    def optimize(self, common_num=10, cache_threshold=1000):
+
+        prefixes = set([])
+
+        for _, word in self.common_prefix(
+                '', limit=self._count_leaves, with_payload=False):
+            prefixes.update(self._prefixes(word))
+
+        prefixes.add('')
+
+        for prefix in prefixes:
+            leaves = self.common_prefix(prefix, limit=self._count_leaves)
+
+            if len(leaves) >= cache_threshold:
+                self._cache[prefix] = sorted(
+                    leaves, key=lambda it: it[0], reverse=True)[:common_num]
+
     def insert(self, string, rating, payload=None):
 
         node = self.root
@@ -138,8 +170,10 @@ class TernarySearchTree:
 
         return node
 
-
     def common_prefix(self, prefix, limit=10, with_payload=True):
+
+        if prefix in self._cache:
+            return self._cache[prefix][:limit]
 
         if prefix == '':
             child = self.root
