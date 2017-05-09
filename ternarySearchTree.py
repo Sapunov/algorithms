@@ -152,7 +152,7 @@ class TernarySearchTree:
             if i == lstring - 1:
                 self._insert(node, string[i], rating, payload)
             else:
-                node = self._insert(node, string[i], payload)
+                node = self._insert(node, string[i])
 
     def search(self, string):
 
