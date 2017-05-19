@@ -1,19 +1,24 @@
 # Алгоритмы и структуры данных
 
+
 ### Сортировки
 
-- [selection sort O(n^2)](selectionSort.py)
-- [insertion sort O(n^2)](insertionSort.py)
-- [merge sort O(nlog(n))](mergeSort.py)
+- [selection sort](selectionSort.py)
+- [insertion sort](insertionSort.py)
+- [merge sort](mergeSort.py)
+- [quick sort](quickSort.py)
+
 
 ### Текст
 
 - [TF-IDF](tfIdf.py)
 
+
 ### Поиск
 
-- [линейный поиск O(n)](linearSearch.py)
-- [двоичный поиск O(log(n))](binarySearch.py)
+- [линейный поиск](linearSearch.py)
+- [двоичный поиск)](binarySearch.py)
+
 
 ### Деревья
 
