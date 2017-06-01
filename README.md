@@ -17,7 +17,7 @@
 ### Поиск
 
 - [линейный поиск](linearSearch.py)
-- [двоичный поиск)](binarySearch.py)
+- [двоичный поиск](binarySearch.py)
 
 
 ### Деревья
