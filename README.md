@@ -1,7 +1,9 @@
-# Алгоритмы и структуры данных
+# Algorithms and data structures
+
+The best notes for algorithms and data structures course is your own code
 
 
-### Сортировки
+### Sorting algorithms
 
 - [selection sort](selectionSort.py)
 - [insertion sort](insertionSort.py)
@@ -9,17 +11,17 @@
 - [quick sort](quickSort.py)
 
 
-### Текст
+### Text
 
 - [TF-IDF](tfIdf.py)
 
 
-### Поиск
+### Search
 
-- [линейный поиск](linearSearch.py)
-- [двоичный поиск](binarySearch.py)
+- [linear search](linearSearch.py)
+- [binary search](binarySearch.py)
 
 
-### Деревья
+### Trees
 
-- [тернарное дерево поиска](ternarySearchTree.py)
+- [ternary search tree](trees/ternarySearchTree.py)
