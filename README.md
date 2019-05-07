@@ -5,21 +5,21 @@ The best notes for algorithms and data structures course is your own code
 
 ### Sorting algorithms
 
-- [selection sort](selectionSort.py)
-- [insertion sort](insertionSort.py)
-- [merge sort](mergeSort.py)
-- [quick sort](quickSort.py)
+- [selection sort](sorting/selectionSort.py)
+- [insertion sort](sorting/insertionSort.py)
+- [merge sort](sorting/mergeSort.py)
+- [quick sort](sorting/quickSort.py)
 
 
 ### Text
 
-- [TF-IDF](tfIdf.py)
+- [TF-IDF](text/tfIdf.py)
 
 
 ### Search
 
-- [linear search](linearSearch.py)
-- [binary search](binarySearch.py)
+- [linear search](search/linearSearch.py)
+- [binary search](search/binarySearch.py)
 
 
 ### Trees
