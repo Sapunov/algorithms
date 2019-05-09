@@ -119,7 +119,15 @@ class BinarySearchTree:
 
     def find_range(self, left, right):
 
-        raise NotImplementedError()
+        result = []
+        _, node = self._find_or_parent(left)
+
+        while node and node.key <= right:
+            if node.key >= left:
+                result.append(node)
+            node = self.next(node)
+
+        return result
 
     def nearest_neighbour(self, node):
 
