@@ -55,6 +55,19 @@ def right_ancestor(node):
         return right_ancestor(node.parent)
 
 
+def left_ancestor(node):
+
+    assert_node(node)
+
+    if node.parent is None:
+        return None
+
+    if node.key > node.parent.key:
+        return node.parent
+    else:
+        return left_ancestor(node.parent)
+
+
 def left_descendant(node):
     '''Самая левая нода, начиная с node
     '''
@@ -65,6 +78,16 @@ def left_descendant(node):
         return node
     else:
         return left_descendant(node.left)
+
+
+def right_descendant(node):
+
+    assert_node(node)
+
+    if node.right is None:
+        return node
+    else:
+        return right_descendant(node.right)
 
 
 class BinarySearchTree:
@@ -117,6 +140,15 @@ class BinarySearchTree:
         else:
             return right_ancestor(node)
 
+    def prev(self, node):
+
+        assert_node(node)
+
+        if node.has_left_child():
+            return right_descendant(node.left)
+        else:
+            return left_ancestor(node)
+
     def find_range(self, left, right):
 
         result = []
@@ -129,9 +161,23 @@ class BinarySearchTree:
 
         return result
 
-    def nearest_neighbour(self, node):
+    def nearest_neighbour(self, key):
 
-        assert_node(node)
+        found, node = self._find_or_parent(key)
+
+        if found:
+            return (self.prev(node), self.next(node))
+        elif node.key < key:
+            return (node, self.next(node))
+        else:
+            return (self.prev(node), node)
+
+    def dfs(self, func):
+
+        raise NotImplementedError()
+
+    def bfs(self, func):
+
         raise NotImplementedError()
 
     def _find_or_parent(self, key):

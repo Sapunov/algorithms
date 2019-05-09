@@ -134,6 +134,40 @@ class BSTTest(TestCase):
 
         self.assertEqual(len(found), 0)
 
+    def test_prev_middle(self):
+
+        tree = TREE()
+
+        tree.insert_all([7, 5, 4, 1])
+
+        five = tree.find(5)
+
+        self.assertEqual(tree.prev(five).key, 4)
+
+    def test_prev_first(self):
+
+        tree = TREE()
+
+        tree.insert_all([7, 5, 4, 1])
+
+        one = tree.find(1)
+
+        self.assertIsNone(tree.prev(one))
+
+    def test_prev_root(self):
+
+        tree = TREE()
+
+        tree.insert_all([4, 5, 3])
+
+        self.assertEqual(tree.prev(tree.root).key, 3)
+
+    def test_prev_empty(self):
+
+        tree = TREE()
+
+        self.assertRaises(AssertionError, tree.prev, tree.root)
+
 
 if __name__ == '__main__':
 
