@@ -187,14 +187,83 @@ class BSTTest(TestCase):
         tree = TREE()
         tree.insert_all([2, 1, 0, 9, 5])
 
-        items = []
-        def accumulate(item):
-            items.append(item)
-
-        tree.bfs(accumulate)
-        keys = [_.key for _ in items]
+        keys = []
+        tree.bfs(lambda node: keys.append(node.key))
 
         self.assertEqual(keys, [2, 1, 9, 0, 5])
+
+    def test_delete_not_children(self):
+
+        tree = TREE()
+
+        tree.insert_all([5, 2, 9])
+
+        tree.delete_by_key(9)
+
+        self.assertEqual(tree.keys(), [2, 5])
+
+    def test_delete_left_child(self):
+
+        tree = TREE()
+
+        tree.insert_all([5, 2, 9, 1])
+
+        tree.delete_by_key(2)
+
+        self.assertEqual(tree.keys(), [1, 5, 9])
+
+    def test_delete_right_child(self):
+
+        tree = TREE()
+
+        tree.insert_all([5, 2, 9, 3])
+
+        tree.delete_by_key(2)
+
+        self.assertEqual(tree.keys(), [3, 5, 9])
+
+    def test_delete_root_with_children(self):
+
+        tree = TREE()
+
+        tree.insert_all([5, 2, 9])
+
+        tree.delete_by_key(5)
+
+        self.assertEqual(tree.keys(), [2, 9])
+
+    def test_delete_root_with_one_child(self):
+
+        tree = TREE()
+
+        tree.insert_all([5, 2])
+
+        tree.delete_by_key(5)
+
+        self.assertEqual(tree.keys(), [2])
+
+    def test_delete_root_no_children(self):
+
+        tree = TREE()
+
+        tree.insert_all([5])
+
+        tree.delete_by_key(5)
+
+        self.assertEqual(tree.keys(), [])
+
+    def test_delete_both_children(self):
+
+        tree = TREE()
+
+        tree.insert_all([5, 3, 9, 1, 4])
+
+        tree.delete_by_key(3)
+
+        keys = []
+        tree.dfs(lambda node: keys.append(node.key))
+
+        self.assertEqual(keys, [5, 4, 1, 9])
 
 
 if __name__ == '__main__':

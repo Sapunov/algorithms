@@ -27,6 +27,14 @@ class Node:
 
         return not self.parent
 
+    def has_any_children(self):
+
+        return self.right or self.left
+
+    def has_both_children(self):
+
+        return self.right and self.left
+
     def __repr__(self):
 
         return f'<Node:{self.key}>'
@@ -127,7 +135,44 @@ class BinarySearchTree:
     def delete(self, node):
 
         assert_node(node)
-        raise NotImplementedError()
+
+        self.size -= 1
+
+        if not node.has_any_children():  # no children
+            if node.is_left_child():
+                node.parent.left = None
+            elif node.is_right_child():
+                node.parent.right = None
+            else:
+                self.root = None
+        elif not node.has_both_children():  # only one child
+            child = node.left if node.has_left_child() else node.right
+            child.parent = node.parent
+            if node.is_left_child():
+                node.parent.left = child
+            elif node.is_right_child():
+                node.parent.right = child
+            else:
+                self.root = child
+        else:  # two children
+            next_node = self.next(node)
+
+            node.left.parent = next_node
+            next_node.left = node.left
+
+            if node.is_left_child():
+                node.parent.left = next_node
+            elif node.is_right_child():
+                node.parent.right = next_node
+            else:
+                self.root = next_node
+            next_node.parent = node.parent
+
+    def delete_by_key(self, key):
+
+        node = self.find(key)
+        if node:
+            self.delete(node)
 
     def next(self, node):
 
@@ -200,6 +245,23 @@ class BinarySearchTree:
             if node.has_right_child():
                 stack.append(node.right)
 
+    def max(self):
+
+        raise NotImplementedError()
+
+    def min(self):
+
+        raise NotImplementedError()
+
+    def keys(self):
+
+        keys = []
+        self.bfs(lambda node: keys.append(node.key))
+
+        keys.sort()
+
+        return keys
+
     def _find_or_parent(self, key):
 
         node = self.root
@@ -226,3 +288,8 @@ class BinarySearchTree:
     def __str__(self):
 
         return self.__repr__()
+
+
+def print_as_list(node):
+
+    print(f'{node} -> {node.left}, {node.right}')
