@@ -265,6 +265,59 @@ class BSTTest(TestCase):
 
         self.assertEqual(keys, [5, 4, 1, 9])
 
+    def test_min(self):
+
+        tree = TREE()
+
+        tree.insert_all([5, 3, 9, 1, 4])
+
+        self.assertEqual(tree.min().key, 1)
+
+    def test_min_empty(self):
+
+        tree = TREE()
+
+        self.assertIsNone(tree.min())
+
+    def test_min_node(self):
+
+        tree = TREE()
+
+        tree.insert_all([5, 3, 9, 8, 23])
+
+        nine = tree.find(9)
+        self.assertEqual(tree.min(nine).key, 8)
+
+    def test_max(self):
+
+        tree = TREE()
+
+        tree.insert_all([5, 3, 9, 1, 4])
+
+        self.assertEqual(tree.max().key, 9)
+
+    def test_max_empty(self):
+
+        tree = TREE()
+
+        self.assertIsNone(tree.max())
+
+    def test_max_node(self):
+
+        tree = TREE()
+
+        tree.insert_all([5, 3, 9, 8, 23])
+
+        nine = tree.find(9)
+        self.assertEqual(tree.max(nine).key, 23)
+
+'''
+    5
+   / \
+  3   9
+     / \
+    8   23
+'''
 
 if __name__ == '__main__':
 

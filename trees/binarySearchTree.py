@@ -240,13 +240,31 @@ class BinarySearchTree:
             if node.has_right_child():
                 stack.append(node.right)
 
-    def max(self):
+    def max(self, node=None):
 
-        raise NotImplementedError()
+        if node is None:
+            node = self.root
 
-    def min(self):
+        if node is None:
+            return None
 
-        raise NotImplementedError()
+        while node.has_right_child():
+            node = node.right
+
+        return node
+
+    def min(self, node=None):
+
+        if node is None:
+            node = self.root
+
+        if node is None:
+            return None
+
+        while node.has_left_child():
+            node = node.left
+
+        return node
 
     def keys(self):
 
