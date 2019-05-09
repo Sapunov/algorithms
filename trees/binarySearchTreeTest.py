@@ -168,6 +168,34 @@ class BSTTest(TestCase):
 
         self.assertRaises(AssertionError, tree.prev, tree.root)
 
+    def test_dfs(self):
+
+        tree = TREE()
+        tree.insert_all([2, 1, 0, 9, 5])
+
+        items = []
+        def accumulate(item):
+            items.append(item)
+
+        tree.dfs(accumulate)
+        keys = [_.key for _ in items]
+
+        self.assertEqual(keys, [2, 1, 0, 9, 5])
+
+    def test_bfs(self):
+
+        tree = TREE()
+        tree.insert_all([2, 1, 0, 9, 5])
+
+        items = []
+        def accumulate(item):
+            items.append(item)
+
+        tree.bfs(accumulate)
+        keys = [_.key for _ in items]
+
+        self.assertEqual(keys, [2, 1, 9, 0, 5])
+
 
 if __name__ == '__main__':
 

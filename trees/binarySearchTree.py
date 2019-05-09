@@ -69,8 +69,6 @@ def left_ancestor(node):
 
 
 def left_descendant(node):
-    '''Самая левая нода, начиная с node
-    '''
 
     assert_node(node)
 
@@ -174,11 +172,33 @@ class BinarySearchTree:
 
     def dfs(self, func):
 
-        raise NotImplementedError()
+        if self.root is None:
+            return
+
+        stack = [self.root]
+
+        while stack:
+            node = stack.pop()
+            func(node)
+            if node.has_right_child():
+                stack.append(node.right)
+            if node.has_left_child():
+                stack.append(node.left)
 
     def bfs(self, func):
 
-        raise NotImplementedError()
+        if self.root is None:
+            return
+
+        stack = [self.root]
+
+        while stack:
+            node = stack.pop(0)
+            func(node)
+            if node.has_left_child():
+                stack.append(node.left)
+            if node.has_right_child():
+                stack.append(node.right)
 
     def _find_or_parent(self, key):
 
