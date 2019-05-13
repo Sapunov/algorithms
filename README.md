@@ -25,3 +25,4 @@ The best notes for algorithms and data structures course is your own code
 ### Trees
 
 - [ternary search tree](trees/ternarySearchTree.py)
+- [binary search tree](trees/binarySearchTree.py)
