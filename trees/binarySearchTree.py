@@ -275,6 +275,21 @@ class BinarySearchTree:
 
         return keys
 
+    def inorder(self, func):
+
+        root = self.root
+
+        stack = []
+
+        while stack or root:
+            if root:
+                stack.append(root)
+                root = root.left
+            else:
+                root = stack.pop()
+                func(root)
+                root = root.right
+
     def _find_or_parent(self, key):
 
         node = self.root

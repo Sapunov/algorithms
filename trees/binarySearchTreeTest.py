@@ -173,14 +173,19 @@ class BSTTest(TestCase):
         tree = TREE()
         tree.insert_all([2, 1, 0, 9, 5])
 
-        items = []
-        def accumulate(item):
-            items.append(item)
-
-        tree.dfs(accumulate)
-        keys = [_.key for _ in items]
+        keys = []
+        tree.dfs(lambda node: keys.append(node.key))
 
         self.assertEqual(keys, [2, 1, 0, 9, 5])
+
+    def test_dfs_empty(self):
+
+        tree = TREE()
+
+        keys = []
+        tree.dfs(lambda node: keys.append(node.key))
+
+        self.assertEqual(keys, [])
 
     def test_bfs(self):
 
@@ -191,6 +196,15 @@ class BSTTest(TestCase):
         tree.bfs(lambda node: keys.append(node.key))
 
         self.assertEqual(keys, [2, 1, 9, 0, 5])
+
+    def test_bfs_empty(self):
+
+        tree = TREE()
+
+        keys = []
+        tree.bfs(lambda node: keys.append(node.key))
+
+        self.assertEqual(keys, [])
 
     def test_delete_not_children(self):
 
@@ -310,6 +324,25 @@ class BSTTest(TestCase):
 
         nine = tree.find(9)
         self.assertEqual(tree.max(nine).key, 23)
+
+    def test_inorder_ok(self):
+
+        tree = TREE()
+        tree.insert_all([5, 3, 9, 8, 23])
+
+        keys = []
+        tree.inorder(lambda node: keys.append(node.key))
+
+        self.assertEqual(keys, [3, 5, 8, 9, 23])
+
+    def test_inorder_empty(self):
+
+        tree = TREE()
+
+        keys = []
+        tree.inorder(lambda node: keys.append(node.key))
+
+        self.assertEqual(keys, [])
 
 '''
     5
