@@ -50,7 +50,7 @@ class BSTTest(TestCase):
 
         tree = TREE()
 
-        tree.insert_all([4, 5, 3])
+        tree.insert_all([4, 5, 3], use_random=False)
 
         self.assertEqual(tree.next(tree.root).key, 5)
 
@@ -158,7 +158,7 @@ class BSTTest(TestCase):
 
         tree = TREE()
 
-        tree.insert_all([4, 5, 3])
+        tree.insert_all([4, 5, 3], use_random=False)
 
         self.assertEqual(tree.prev(tree.root).key, 3)
 
@@ -171,7 +171,7 @@ class BSTTest(TestCase):
     def test_dfs(self):
 
         tree = TREE()
-        tree.insert_all([2, 1, 0, 9, 5])
+        tree.insert_all([2, 1, 0, 9, 5], use_random=False)
 
         keys = []
         tree.dfs(lambda node: keys.append(node.key))
@@ -190,7 +190,7 @@ class BSTTest(TestCase):
     def test_bfs(self):
 
         tree = TREE()
-        tree.insert_all([2, 1, 0, 9, 5])
+        tree.insert_all([2, 1, 0, 9, 5], use_random=False)
 
         keys = []
         tree.bfs(lambda node: keys.append(node.key))
@@ -270,7 +270,7 @@ class BSTTest(TestCase):
 
         tree = TREE()
 
-        tree.insert_all([5, 3, 9, 1, 4])
+        tree.insert_all([5, 3, 9, 1, 4], use_random=False)
 
         tree.delete_by_key(3)
 
@@ -297,7 +297,7 @@ class BSTTest(TestCase):
 
         tree = TREE()
 
-        tree.insert_all([5, 3, 9, 8, 23])
+        tree.insert_all([5, 3, 9, 8, 23], use_random=False)
 
         nine = tree.find(9)
         self.assertEqual(tree.min(nine).key, 8)
@@ -320,7 +320,7 @@ class BSTTest(TestCase):
 
         tree = TREE()
 
-        tree.insert_all([5, 3, 9, 8, 23])
+        tree.insert_all([5, 3, 9, 8, 23], use_random=False)
 
         nine = tree.find(9)
         self.assertEqual(tree.max(nine).key, 23)

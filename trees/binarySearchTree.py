@@ -1,3 +1,6 @@
+import random
+
+
 class Node:
 
     def __init__(self, key, *, parent=None, left=None, right=None):
@@ -76,26 +79,6 @@ def left_ancestor(node):
         return left_ancestor(node.parent)
 
 
-def left_descendant(node):
-
-    assert_node(node)
-
-    if node.left is None:
-        return node
-    else:
-        return left_descendant(node.left)
-
-
-def right_descendant(node):
-
-    assert_node(node)
-
-    if node.right is None:
-        return node
-    else:
-        return right_descendant(node.right)
-
-
 class BinarySearchTree:
 
     def __init__(self, root_node=None):
@@ -127,7 +110,10 @@ class BinarySearchTree:
                 self.root = node
             self.size += 1
 
-    def insert_all(self, keys):
+    def insert_all(self, keys, *, use_random=True):
+
+        if use_random:
+            random.shuffle(keys)
 
         for key in keys:
             self.insert(key)
@@ -174,7 +160,7 @@ class BinarySearchTree:
         assert_node(node)
 
         if node.has_right_child():
-            return left_descendant(node.right)
+            return self.min(node.right)
         else:
             return right_ancestor(node)
 
@@ -183,7 +169,7 @@ class BinarySearchTree:
         assert_node(node)
 
         if node.has_left_child():
-            return right_descendant(node.left)
+            return self.max(node.left)
         else:
             return left_ancestor(node)
 
