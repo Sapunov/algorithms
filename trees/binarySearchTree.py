@@ -274,6 +274,11 @@ class BinarySearchTree:
                 func(root)
                 root = root.right
 
+    def clear(self):
+
+        self.root = None
+        self.size = 0
+
     def _find_or_parent(self, key):
 
         node = self.root

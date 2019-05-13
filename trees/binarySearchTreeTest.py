@@ -344,15 +344,17 @@ class BSTTest(TestCase):
 
         self.assertEqual(keys, [])
 
-'''
-    5
-   / \
-  3   9
-     / \
-    8   23
-'''
+    def test_clear(self):
+
+        tree = TREE()
+        tree.insert_all([5, 3, 9, 8, 23])
+
+        tree.clear()
+
+        self.assertIsNone(tree.root)
+        self.assertEqual(tree.size, 0)
+
 
 if __name__ == '__main__':
 
     unittest.main()
-
