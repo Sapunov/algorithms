@@ -255,9 +255,7 @@ class BinarySearchTree:
     def keys(self):
 
         keys = []
-        self.bfs(lambda node: keys.append(node.key))
-
-        keys.sort()
+        self.inorder(lambda node: keys.append(node.key))
 
         return keys
 
