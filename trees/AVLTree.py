@@ -47,7 +47,7 @@ class Node:
 
     def __repr__(self):
 
-        return f'<Node:{self.key}>'
+        return f'<Node:{self.key}|{self.parent.key if self.parent else None}>'
 
     def __str__(self):
 
@@ -95,11 +95,83 @@ class AVLTree:
             else:  # root node
                 self.root = node
             self.size += 1
+            self._rebalance(node)
 
     def insert_all(self, keys):
 
         for key in keys:
             self.insert(key)
+
+    def bfs(self, func):
+
+        if self.root is None:
+            return
+
+        stack = [self.root]
+
+        while stack:
+            node = stack.pop(0)
+            func(node)
+            if node.has_left_child():
+                stack.append(node.left)
+            if node.has_right_child():
+                stack.append(node.right)
+
+    def _rotate_right(self, node):
+
+        assert_node(node)
+        assert_node(node.left)
+
+        parent = node.parent
+        new = node.left
+
+        # 1
+        if parent:
+            if node.is_left_child():
+                parent.left = new
+            else:
+                parent.right = new
+            new.parent = parent
+        else:
+            self.root = new
+            new.parent = None
+
+        # 2
+        node.left = new.right
+        if node.left:
+            node.left.parent = node
+
+        # 3
+        new.right = node
+        node.parent = new
+
+    def _rotate_left(self, node):
+
+        assert_node(node)
+        assert_node(node.right)
+
+        parent = node.parent
+        new = node.right
+
+        # 1
+        if parent:
+            if node.is_left_child():
+                parent.left = new
+            else:
+                parent.right = new
+            new.parent = parent
+        else:
+            self.root = new
+            new.parent = None
+
+        # 2
+        node.right = new.left
+        if node.right:
+            node.right.parent = node
+
+        # 3
+        new.left = node
+        node.parent = new
 
     def _rebalance(self, node):
 
@@ -131,3 +203,8 @@ class AVLTree:
     def __str__(self):
 
         return self.__repr__()
+
+
+def print_as_list(node):
+
+    print(f'{node} -> {node.left}, {node.right}')
