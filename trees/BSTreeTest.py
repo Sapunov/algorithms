@@ -1,4 +1,3 @@
-from unittest import TestCase
 import unittest
 
 from BSTree import BSTree
@@ -7,7 +6,7 @@ from BSTree import BSTree
 TREE = BSTree
 
 
-class BSTTest(TestCase):
+class BSTreeTest(unittest.TestCase):
 
     def test_insert(self):
 
