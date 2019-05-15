@@ -1,6 +1,9 @@
 from common import BinaryTree, Node, assert_node
 
 
+DEBUG = True
+
+
 class AVLNode(Node):
 
     def __init__(self, key, *, parent=None, left=None, right=None):
@@ -62,12 +65,22 @@ class AVLTree(BinaryTree):
             self.size += 1
             self._rebalance(node)
 
+    def delete(self, node):
+
+        super().delete(node)
+
+        _, parent = self._find_or_parent(node.key)
+
+        if parent:
+            self._rebalance(parent)
+
     def _rotate_right(self, node):
 
         assert_node(node)
         assert_node(node.left)
 
-        # print(f'# Rotating right {node}...')
+        if DEBUG:
+            print(f'# Rotating right {node}...')
 
         parent = node.parent
         new = node.left
@@ -97,7 +110,8 @@ class AVLTree(BinaryTree):
         assert_node(node)
         assert_node(node.right)
 
-        # print(f'# Rotating left {node}...')
+        if DEBUG:
+            print(f'# Rotating left {node}...')
 
         parent = node.parent
         new = node.right
@@ -126,7 +140,8 @@ class AVLTree(BinaryTree):
 
         assert_node(node)
 
-        # print(f'# Rebalancing right {node}...')
+        if DEBUG:
+            print(f'# Rebalancing right {node}...')
 
         middle = node.left
 
@@ -142,7 +157,8 @@ class AVLTree(BinaryTree):
 
         assert_node(node)
 
-        # print(f'# Rebalancing left {node}...')
+        if DEBUG:
+            print(f'# Rebalancing left {node}...')
 
         middle = node.right
 
@@ -158,7 +174,8 @@ class AVLTree(BinaryTree):
 
         assert_node(node)
 
-        # print(f'# Rebalancing {node}...')
+        if DEBUG:
+            print(f'# Rebalancing {node}...')
 
         parent = node.parent
 
@@ -173,34 +190,6 @@ class AVLTree(BinaryTree):
         if parent:
             self._rebalance(parent)
 
-    def _find_or_parent(self, key):
-
-        node = self.root
-
-        if node is None:
-            return (False, None)
-
-        while True:
-            if node.key == key:
-                return (True, node)
-            if node.key > key:
-                if not node.has_left_child():
-                    return (False, node)
-                node = node.left
-            else:
-                if not node.has_right_child():
-                    return (False, node)
-                node = node.right
-
     def __repr__(self):
 
         return f'<AVLTree: root={self.root} size={self.size}>'
-
-    def __str__(self):
-
-        return self.__repr__()
-
-
-def print_as_list(node):
-
-    print(f'{node} -> {node.left}, {node.right}')
