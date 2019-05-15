@@ -1,42 +1,23 @@
-class Node:
+from common import BinaryTree, Node, assert_node
+
+
+class AVLNode(Node):
 
     def __init__(self, key, *, parent=None, left=None, right=None):
 
-        self.key = key
-        self.parent = parent
-        self.left = left
-        self.right = right
+        super().__init__(key, parent=parent, left=left, right=right)
 
-        self.height = 0
-        self.recompute_height()
+        self.height = 1
 
-    def has_right_child(self):
+    @property
+    def lheight(self):
 
-        return self.right is not None
+        return self.left.height if self.has_left_child() else 0
 
-    def has_left_child(self):
+    @property
+    def rheight(self):
 
-        return self.left is not None
-
-    def is_left_child(self):
-
-        return self.parent and self.parent.left == self
-
-    def is_right_child(self):
-
-        return self.parent and self.parent.right == self
-
-    def is_root(self):
-
-        return not self.parent
-
-    def has_any_children(self):
-
-        return self.right or self.left
-
-    def has_both_children(self):
-
-        return self.right and self.left
+        return self.right.height if self.has_right_child() else 0
 
     def recompute_height(self):
 
@@ -47,20 +28,13 @@ class Node:
 
     def __repr__(self):
 
-        return f'<Node:{self.key}|{self.parent.key if self.parent else None}>'
+        pkey = self.parent.key if self.parent else None
+        diff = abs(self.lheight - self.rheight)
 
-    def __str__(self):
-
-        return self.__repr__()
-
-
-def assert_node(node):
-
-    assert isinstance(node, Node), \
-        f'Node must be an instance of class Node. Passed: {type(node)}'
+        return f'<Node:{self.key}^{pkey}@{self.height}[{diff}]>'
 
 
-class AVLTree:
+class AVLTree(BinaryTree):
 
     def __init__(self):
 
@@ -72,22 +46,13 @@ class AVLTree:
 
         return self.root.height if self.root else 0
 
-    def find(self, key):
-
-        found, node = self._find_or_parent(key)
-
-        if found:
-            return node
-
-        return None
-
     def insert(self, key):
 
         found, parent = self._find_or_parent(key)
 
         if not found:
-            node = Node(key, parent=parent)
-            if parent:
+            node = AVLNode(key, parent=parent)
+            if parent is not None:
                 if parent.key > key:
                     parent.left = node
                 else:
@@ -97,30 +62,12 @@ class AVLTree:
             self.size += 1
             self._rebalance(node)
 
-    def insert_all(self, keys):
-
-        for key in keys:
-            self.insert(key)
-
-    def bfs(self, func):
-
-        if self.root is None:
-            return
-
-        stack = [self.root]
-
-        while stack:
-            node = stack.pop(0)
-            func(node)
-            if node.has_left_child():
-                stack.append(node.left)
-            if node.has_right_child():
-                stack.append(node.right)
-
     def _rotate_right(self, node):
 
         assert_node(node)
         assert_node(node.left)
+
+        # print(f'# Rotating right {node}...')
 
         parent = node.parent
         new = node.left
@@ -150,6 +97,8 @@ class AVLTree:
         assert_node(node)
         assert_node(node.right)
 
+        # print(f'# Rotating left {node}...')
+
         parent = node.parent
         new = node.right
 
@@ -173,9 +122,56 @@ class AVLTree:
         new.left = node
         node.parent = new
 
+    def _rebalance_right(self, node):
+
+        assert_node(node)
+
+        # print(f'# Rebalancing right {node}...')
+
+        middle = node.left
+
+        if middle.rheight > middle.lheight:
+            self._rotate_left(middle)
+
+        self._rotate_right(node)
+
+        node.recompute_height()
+        middle.recompute_height()
+
+    def _rebalance_left(self, node):
+
+        assert_node(node)
+
+        # print(f'# Rebalancing left {node}...')
+
+        middle = node.right
+
+        if middle.lheight > middle.rheight:
+            self._rotate_right(middle)
+
+        self._rotate_left(node)
+
+        node.recompute_height()
+        middle.recompute_height()
+
     def _rebalance(self, node):
 
         assert_node(node)
+
+        # print(f'# Rebalancing {node}...')
+
+        parent = node.parent
+
+        if node.lheight > node.rheight + 1:
+            self._rebalance_right(node)
+
+        if node.rheight > node.lheight + 1:
+            self._rebalance_left(node)
+
+        node.recompute_height()
+
+        if parent:
+            self._rebalance(parent)
 
     def _find_or_parent(self, key):
 
@@ -198,7 +194,7 @@ class AVLTree:
 
     def __repr__(self):
 
-        return f'<AVLTree: root={self.root} size={self.size} height=>'
+        return f'<AVLTree: root={self.root} size={self.size}>'
 
     def __str__(self):
 

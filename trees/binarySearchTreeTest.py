@@ -1,10 +1,10 @@
 from unittest import TestCase
 import unittest
 
-import binarySearchTree
+from BSTree import BSTree
 
 
-TREE = binarySearchTree.BinarySearchTree
+TREE = BSTree
 
 
 class BSTTest(TestCase):

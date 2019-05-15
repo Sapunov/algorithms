@@ -1,6 +1,3 @@
-import random
-
-
 class Node:
 
     def __init__(self, key, *, parent=None, left=None, right=None):
@@ -79,7 +76,7 @@ def left_ancestor(node):
         return left_ancestor(node.parent)
 
 
-class BinarySearchTree:
+class BinaryTree:
 
     def __init__(self, root_node=None):
 
@@ -110,44 +107,14 @@ class BinarySearchTree:
                 self.root = node
             self.size += 1
 
-    def insert_all(self, keys, *, use_random=True):
-
-        if use_random:
-            random.shuffle(keys)
+    def insert_all(self, keys):
 
         for key in keys:
             self.insert(key)
 
     def delete(self, node):
 
-        assert_node(node)
-
-        self.size -= 1
-
-        # Assign none by default to handle case when
-        # node has no children
-        new_parent_child = None
-
-        if node.has_both_children():
-            # Find next node
-            next_node = self.next(node)
-            # Assign left node to the new node
-            node.left.parent = next_node
-            next_node.left = node.left
-            # Reassign child of the parent
-            new_parent_child = next_node
-            next_node.parent = node.parent
-        elif node.has_any_children():
-            child = node.left if node.has_left_child() else node.right
-            child.parent = node.parent
-            new_parent_child = child
-
-        if node.is_left_child():
-            node.parent.left = new_parent_child
-        elif node.is_right_child():
-            node.parent.right = new_parent_child
-        else:
-            self.root = new_parent_child
+        raise NotImplementedError()
 
     def delete_by_key(self, key):
 
@@ -297,10 +264,6 @@ class BinarySearchTree:
                 if not node.has_right_child():
                     return (False, node)
                 node = node.right
-
-    def __repr__(self):
-
-        return f'<BST: root={self.root} size={self.size}>'
 
     def __str__(self):
 
