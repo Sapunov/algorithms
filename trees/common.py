@@ -273,6 +273,14 @@ class BinaryTree:
         self.root = None
         self.size = 0
 
+    def merge(self, other_root):
+
+        raise NotImplementedError()
+
+    def split(self, key):
+
+        raise NotImplementedError()
+
     def _find_or_parent(self, key):
 
         node = self.root
