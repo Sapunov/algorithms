@@ -1,6 +1,3 @@
-import random
-
-
 class Node:
 
     def __init__(self, key, *, parent=None, left=None, right=None):
@@ -79,7 +76,7 @@ def left_ancestor(node):
         return left_ancestor(node.parent)
 
 
-class BinarySearchTree:
+class BinaryTree:
 
     def __init__(self, root_node=None):
 
@@ -110,10 +107,7 @@ class BinarySearchTree:
                 self.root = node
             self.size += 1
 
-    def insert_all(self, keys, *, use_random=True):
-
-        if use_random:
-            random.shuffle(keys)
+    def insert_all(self, keys):
 
         for key in keys:
             self.insert(key)
@@ -279,6 +273,14 @@ class BinarySearchTree:
         self.root = None
         self.size = 0
 
+    def merge(self, other_root):
+
+        raise NotImplementedError()
+
+    def split(self, key):
+
+        raise NotImplementedError()
+
     def _find_or_parent(self, key):
 
         node = self.root
@@ -297,10 +299,6 @@ class BinarySearchTree:
                 if not node.has_right_child():
                     return (False, node)
                 node = node.right
-
-    def __repr__(self):
-
-        return f'<BST: root={self.root} size={self.size}>'
 
     def __str__(self):
 
