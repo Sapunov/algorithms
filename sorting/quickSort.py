@@ -1,4 +1,4 @@
-def quick_sort(array, ascending=True):
+def qsort(array, reverse=False):
 
     la = len(array)
 
@@ -8,11 +8,8 @@ def quick_sort(array, ascending=True):
         less = [array[i] for i in range(la) if array[i] <= pivot and i != mid]
         greater = [array[i] for i in range(la) if array[i] > pivot and i != mid]
 
-        if ascending:
-            return quick_sort(less, ascending) + [pivot] + quick_sort(
-                greater, ascending)
-        else:
-            return quick_sort(greater, ascending) + [pivot] + quick_sort(
-                less, ascending)
+        if reverse:
+            return qsort(greater, reverse) + [pivot] + qsort(less, reverse)
+        return qsort(less, reverse) + [pivot] + qsort(greater, reverse)
     else:
         return array
